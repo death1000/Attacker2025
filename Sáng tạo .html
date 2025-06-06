@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ArtGuard: Nền tảng AI và Blockchain để minh bạch hóa tài trợ văn hóa và chống rửa tiền.">
+    <title>ArtGuard: Soi Sáng 'Điểm Mù' Trong Tài Trợ Văn Hóa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1F2937;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #38BDF8;
+            border-bottom-color: #38BDF8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        .pill-button {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ffffff, #f8fafc);
+        }
+
+        .pill-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #38BDF8, #0EA5E9);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .pill-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+            color: white;
+        }
+
+        .pill-button:hover::before {
+            left: 0;
+        }
+
+        .pill-button.active {
+            background: linear-gradient(45deg, #38BDF8, #0EA5E9);
+            color: white;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        .card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #38BDF8, #0EA5E9, #38BDF8);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03); /* Softened scale */
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .card:hover::before {
+            transform: translateX(0);
+        }
+
+        .step-connector {
+            flex-grow: 1;
+            height: 4px;
+            background: linear-gradient(90deg, #D1D5DB, #38BDF8, #0EA5E9);
+            min-width: 20px;
+            position: relative;
+            border-radius: 2px;
+            animation: pulse-connector 3s infinite;
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+        }
+
+        @keyframes pulse-connector {
+            0%, 100% { opacity: 0.7; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        .step-connector::before {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: -12px;
+            color: #38BDF8;
+            font-size: 1.2rem;
+            animation: move-arrow 2s infinite;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        @keyframes move-arrow {
+            0% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(8px) scale(1.2); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        .gauge-container {
+            width: 180px;
+            height: 90px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            background: radial-gradient(circle, #E1F5FE, #F0F9FF);
+            border-radius: 90px 90px 0 0;
+            box-shadow: 
+                inset 0 0 20px rgba(56, 189, 248, 0.1),
+                0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gauge-bg, .gauge-fill {
+            width: 180px;
+            height: 90px;
+            border-radius: 90px 90px 0 0;
+            border: 18px solid #E5E7EB;
+            border-bottom: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
+
+        .gauge-fill {
+            border-color: #10B981;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            transform: rotate(0deg);
+            transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
+        }
+
+        .gauge-fill.pulse {
+            animation: pulse-gauge 1.5s ease-in-out;
+        }
+
+        @keyframes pulse-gauge {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8)); }
+        }
+
+        .gauge-cover {
+            width: 144px;
+            height: 72px;
+            background: linear-gradient(135deg, #F9FAFB, #FFFFFF);
+            border-radius: 72px 72px 0 0;
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .gauge-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1F2937;
+            transition: all 2s ease-in-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            height: 450px;
+            background: linear-gradient(135deg, #FFFFFF, #F8FAFC);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .faq-item {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            max-height: 500px; /* Sufficiently large max-height for content */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-item.hidden {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .testimonial-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(135deg, #FFFFFF, #F8FAFC);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1), transparent);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.03); /* Softened scale and removed rotateY */
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
+        }
+
+        .testimonial-card:hover::before {
+            transform: scale(1);
+        }
+
+        .hero-animate {
+            animation: heroFadeIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #38BDF8, #0EA5E9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(56, 189, 248, 0.6);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .section-gradient-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .section-gradient-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .section-gradient-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        @media (max-width: 768px) {
+            .gauge-container {
+                width: 140px;
+                height: 70px;
+            }
+            
+            .gauge-bg, .gauge-fill {
+                width: 140px;
+                height: 70px;
+                border-width: 14px;
+            }
+            
+            .gauge-cover {
+                width: 112px;
+                height: 56px;
+                top: 14px;
+                left: 14px;
+            }
+            
+            .gauge-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-in-left, .slide-in-right, .hero-animate, 
+            .step-connector, .gauge-fill, .card:hover, .floating-btn {
+                animation: none;
+                transition: none;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s; width: 4px; height: 4px;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s; width: 6px; height: 6px;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s; width: 3px; height: 3px;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 0.5s; width: 5px; height: 5px;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 1.5s; width: 4px; height: 4px;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 2.5s; width: 7px; height: 7px;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 0.8s; width: 3px; height: 3px;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.8s; width: 5px; height: 5px;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 2.2s; width: 4px; height: 4px;"></div>
+    </div>
+
+    <a href="#contact" class="floating-btn" aria-label="Liên hệ nhanh">
+        💬
+    </a>
+
+    <header class="sticky top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800 glow-text" aria-label="ArtGuard Home">
+                ArtGuard <span class="text-blue-400">🛡️</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#problem" class="nav-link text-gray-600 font-medium">Vấn Đề</a>
+                <a href="#solution" class="nav-link text-gray-600 font-medium">Giải Pháp</a>
+                <a href="#how-it-works" class="nav-link text-gray-600 font-medium">Cách Hoạt Động</a>
+                <a href="#advantage" class="nav-link text-gray-600 font-medium">Lợi Thế</a>
+                <a href="#impact" class="nav-link text-gray-600 font-medium">Tác Động</a>
+            </div>
+            <div class="md:flex items-center space-x-4">
+                <a href="#contact" class="hidden md:inline-block bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold py-2 px-6 rounded-full hover:from-blue-500 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl" aria-label="Request a Demo">
+                    Yêu Cầu Demo
+                </a>
+                <button id="menu-btn" class="md:hidden text-gray-600 focus:outline-none" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg shadow-md">
+            <a href="#problem" class="block py-2 px-4 text-sm hover:bg-gray-100 transition-colors">Vấn Đề</a>
+            <a href="#solution" class="block py-2 px-4 text-sm hover:bg-gray-100 transition-colors">Giải Pháp</a>
+            <a href="#how-it-works" class="block py-2 px-4 text-sm hover:bg-gray-100 transition-colors">Cách Hoạt Động</a>
+            <a href="#advantage" class="block py-2 px-4 text-sm hover:bg-gray-100 transition-colors">Lợi Thế</a>
+            <a href="#impact" class="block py-2 px-4 text-sm hover:bg-gray-100 transition-colors">Tác Động</a>
+            <a href="#contact" class="block py-2 px-4 text-sm bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold">Yêu Cầu Demo</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 section-gradient-1 text-white relative overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight hero-animate glow-text">
+                    Soi Sáng <span class="text-yellow-300">'Điểm Mù'</span> Trong Tài Trợ Văn Hóa
+                </h1>
+                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto hero-animate opacity-90" style="animation-delay: 0.2s;">
+                    ArtGuard sử dụng AI và Blockchain để đảm bảo minh bạch và chống rửa tiền trong tài trợ nghệ thuật, giúp ngân hàng giảm rủi ro và xây dựng niềm tin.
+                </p>
+                <div class="mt-8 flex justify-center gap-4 hero-animate" style="animation-delay: 0.4s;">
+                    <a href="#solution" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:from-yellow-300 hover:to-orange-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105" aria-label="Explore Solution">
+                        Khám Phá Giải Pháp
+                    </a>
+                    <a href="https://docs.google.com/document/d/1GFtDs7QEG7fMaPNVSLp4qmAePtUHRiQiP3_RHytuD0A/preview" 
+                        target="_blank"
+                        class="bg-white/20 backdrop-blur-lg text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white/30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30" 
+                        aria-label="Download Brochure">
+                        Tải Tài Liệu
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem" class="py-20 bg-gray-100 relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold slide-in-left">Vấn Đề: "Điểm Mù" Trong Tài Chính</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto slide-in-right">Thị trường nghệ thuật trị giá hàng nghìn tỷ đô đang bị lợi dụng để rửa tiền.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="card p-8 fade-in">
+                        <div class="text-5xl mb-4" aria-hidden="true">⚖️</div>
+                        <h3 class="text-xl font-semibold mb-2">Định Giá Chủ Quan</h3>
+                        <p class="text-gray-600">Giá trị nghệ thuật dễ bị thao túng để hợp thức hóa tiền bất hợp pháp, như mua tranh giá cao bất thường.</p>
+                    </div>
+                    <div class="card p-8 fade-in" style="animation-delay: 0.2s;">
+                        <div class="text-5xl mb-4" aria-hidden="true">🤫</div>
+                        <h3 class="text-xl font-semibold mb-2">Văn Hóa Bí Mật</h3>
+                        <p class="text-gray-600">Giao dịch riêng tư và trung gian che giấu danh tính, như sử dụng công ty ma.</p>
+                    </div>
+                    <div class="card p-8 fade-in" style="animation-delay: 0.4s;">
+                        <div class="text-5xl mb-4" aria-hidden="true">🚚</div>
+                        <h3 class="text-xl font-semibold mb-2">Dễ Vận Chuyển</h3>
+                        <p class="text-gray-600">Tác phẩm giá trị cao dễ di chuyển qua biên giới, như tượng nhỏ trị giá triệu đô.</p>
+                    </div>
+                </div>
+                <div class="mt-12 bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500 text-red-800 p-6 rounded-lg text-center max-w-4xl mx-auto fade-in shadow-lg" style="animation-delay: 0.6s;">
+                    <p class="font-bold text-lg">Hệ quả: Ngân hàng đối mặt áp lực tuân thủ AML & ESG nhưng thiếu công cụ hiệu quả, khiến tài trợ văn hóa trở thành rủi ro lớn.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-20 section-gradient-3 text-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold slide-in-left">Giải Pháp ArtGuard: Minh Bạch Tuyệt Đối</h2>
+                    <p class="mt-4 text-lg max-w-2xl mx-auto slide-in-right opacity-90">ArtGuard kết hợp AI, Blockchain và ESG để biến rủi ro thành cơ hội.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card p-8 border-t-4 border-blue-400 fade-in bg-white/95 text-gray-800">
+                        <div class="text-5xl mb-4" aria-hidden="true">🧠</div>
+                        <h3 class="text-2xl font-semibold mb-2">AI/ML Phát Hiện Rủi Ro</h3>
+                        <p class="text-gray-600 text-sm">Phân tích giao dịch để phát hiện rửa tiền, như chia nhỏ giao dịch ("smurfing") hoặc vòng lặp tài trợ.</p>
+                    </div>
+                    <div class="card p-8 border-t-4 border-green-500 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.2s;">
+                        <div class="text-5xl mb-4" aria-hidden="true">🔗</div>
+                        <h3 class="text-2xl font-semibold mb-2">Blockchain Bất Biến</h3>
+                        <p class="text-gray-600 text-sm">Lưu trữ giao dịch vĩnh viễn, không thể sửa đổi, đảm bảo truy xuất nguồn gốc.</p>
+                    </div>
+                    <div class="card p-8 border-t-4 border-yellow-500 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.4s;">
+                        <div class="text-5xl mb-4" aria-hidden="true">📊</div>
+                        <h3 class="text-2xl font-semibold mb-2">Báo Cáo ESG & AML</h3>
+                        <p class="text-gray-600 text-sm">Cung cấp báo cáo thời gian thực, chấm điểm ESG, và hỗ trợ kiểm toán.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-16">
+                    <h3 class="text-2xl font-semibold mb-8 slide-in-left">6 Thành Phần Cốt Lõi:</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800">
+                            <p class="font-bold">Cổng eKYC</p>
+                            <p>Xác thực danh tính người dùng/tổ chức.</p>
+                        </div>
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.1s;">
+                            <p class="font-bold">Portal Dự Án</p>
+                            <p>Quản lý và kêu gọi tài trợ nghệ thuật.</p>
+                        </div>
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.2s;">
+                            <p class="font-bold">Portal Ngân Hàng</p>
+                            <p>Giám sát rủi ro và danh sách đen.</p>
+                        </div>
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.3s;">
+                            <p class="font-bold">Lõi AI/ML</p>
+                            <p>Phân tích gian lận và chấm điểm rủi ro.</p>
+                        </div>
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.4s;">
+                            <p class="font-bold">Lõi Blockchain</p>
+                            <p>Ghi giao dịch an toàn, bất biến.</p>
+                        </div>
+                        <div class="card p-4 fade-in bg-white/95 text-gray-800" style="animation-delay: 0.5s;">
+                            <p class="font-bold">Dashboard</p>
+                            <p>Báo cáo quỹ, rủi ro, và ESG/AML.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-20 bg-gradient-to-b from-gray-50 to-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold slide-in-left">ArtGuard Hoạt Động Như Thế Nào?</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto slide-in-right">Xem ArtGuard ngăn gian lận và hỗ trợ dự án hợp pháp trong thực tế.</p>
+                </div>
+                <div class="flex justify-center mb-8 space-x-4">
+                    <button id="scenario1-btn" class="pill-button px-6 py-2 rounded-full font-semibold active" aria-controls="scenario1" aria-selected="true">🚨 Tình Huống Rửa Tiền</button>
+                    <button id="scenario2-btn" class="pill-button px-6 py-2 rounded-full font-semibold" aria-controls="scenario2" aria-selected="false">✅ Tình Huống Hợp Pháp</button>
+                </div>
+                <div id="scenario1" class="scenario-content card p-8 fade-in">
+                    <h3 class="text-2xl font-bold text-center mb-2">Phát Hiện & Chặn Rửa Tiền</h3>
+                    <p class="text-center text-gray-600 mb-8">Tổ chức giả mạo cố hợp thức hóa 2.4 tỷ VNĐ qua 12 giao dịch nhỏ.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="text-center flex-1 fade-in">
+                            <div class="text-4xl" aria-hidden="true">💸</div>
+                            <h4 class="font-semibold mt-2">1. Giao Dịch Đáng Ngờ</h4>
+                            <p class="text-sm text-gray-500">12 giao dịch 200 triệu VNĐ từ tài khoản liên kết trong 24 giờ.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.2s;">
+                            <div class="text-4xl" aria-hidden="true">🧠</div>
+                            <h4 class="font-semibold mt-2">2. AI Phân Tích</h4>
+                            <p class="text-sm text-gray-500">AI phát hiện "smurfing" và tổ chức không rõ lịch sử, gán điểm rủi ro cao.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.4s;">
+                            <div id="gauge-container-s1" class="gauge-container">
+                                <div class="gauge-bg"></div>
+                                <div id="gauge-fill-s1" class="gauge-fill"></div>
+                                <div class="gauge-cover">
+                                    <span id="gauge-value-s1" class="gauge-value">0.0</span>
+                                    <span class="text-xs font-medium text-gray-500">Điểm Rủi Ro</span>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold mt-2">3. Cảnh Báo & Xác Minh</h4>
+                            <p class="text-sm text-gray-500">Điểm rủi ro 9.2/10, cảnh báo AML kích hoạt.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.6s;">
+                            <div class="text-4xl" aria-hidden="true">🛡️</div>
+                            <h4 class="font-semibold mt-2">4. Chặn Hành Động</h4>
+                            <p class="text-sm text-gray-500">Giao dịch bị khóa, tổ chức vào danh sách đen, bằng chứng lưu trên blockchain.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="scenario2" class="scenario-content card p-8 hidden">
+                    <h3 class="text-2xl font-bold text-center mb-2">Hỗ Trợ Gây Quỹ Minh Bạch</h3>
+                    <p class="text-center text-gray-600 mb-8">Họa sĩ gây quỹ 200 triệu VNĐ để xây thư viện vùng cao.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="text-center flex-1 fade-in">
+                            <div class="text-4xl" aria-hidden="true">✍️</div>
+                            <h4 class="font-semibold mt-2">1. Tạo Dự Án</h4>
+                            <p class="text-sm text-gray-500">Họa sĩ xác thực eKYC, tạo dự án gây quỹ chi tiết.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.2s;">
+                            <div class="text-4xl" aria-hidden="true">💖</div>
+                            <h4 class="font-semibold mt-2">2. Cộng Đồng Hỗ Trợ</h4>
+                            <p class="text-sm text-gray-500">Nhà tài trợ thanh toán qua blockchain, nhận hóa đơn minh bạch.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.4s;">
+                            <div id="gauge-container-s2" class="gauge-container">
+                                <div class="gauge-bg"></div>
+                                <div id="gauge-fill-s2" class="gauge-fill"></div>
+                                <div class="gauge-cover">
+                                    <span id="gauge-value-s2" class="gauge-value">0.0</span>
+                                    <span class="text-xs font-medium text-gray-500">Điểm Rủi Ro</span>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold mt-2">3. Giám Sát</h4>
+                            <p class="text-sm text-gray-500">AI xác nhận giao dịch hợp lệ, điểm rủi ro thấp.</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="text-center flex-1 fade-in" style="animation-delay: 0.6s;">
+                            <div class="text-4xl" aria-hidden="true">🏆</div>
+                            <h4 class="font-semibold mt-2">4. Hoàn Thành</h4>
+                            <p class="text-sm text-gray-500">Dự án đạt mục tiêu, nhận chứng chỉ ESG, lưu trên blockchain.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advantage" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold slide-in-left">Lợi Thế Vượt Trội</h2>
+                    <p class="mt-2 text-lg text-gray-600 slide-in-right">ArtGuard vượt xa các phương pháp truyền thống về hiệu quả và an toàn.</p>
+                </div>
+                <div class="chart-container fade-in">
+                    <canvas id="comparisonChart" role="img" aria-label="So sánh hiệu quả giữa ArtGuard và giải pháp truyền thống"></canvas>
+                </div>
+                <div class="chart-container mt-12 fade-in" style="animation-delay: 0.2s;">
+                    <canvas id="riskTrendChart" role="img" aria-label="Xu hướng giảm tỷ lệ rửa tiền với ArtGuard"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-20 section-gradient-2 text-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold slide-in-left">Khách Hàng Nói Gì?</h2>
+                    <p class="mt-2 text-lg opacity-90 slide-in-right">Nghe từ những người đã tin tưởng ArtGuard.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="testimonial-card p-6 rounded-lg shadow-lg fade-in text-gray-800">
+                        <p class="text-gray-600 italic">"ArtGuard đã giúp ngân hàng chúng tôi giảm 90% rủi ro AML trong tài trợ nghệ thuật."</p>
+                        <p class="mt-4 font-semibold">Ngân hàng A</p>
+                    </div>
+                    <div class="testimonial-card p-6 rounded-lg shadow-lg fade-in text-gray-800" style="animation-delay: 0.2s;">
+                        <p class="text-gray-600 italic">"Nền tảng minh bạch giúp tổ chức chúng tôi thu hút nhiều tài trợ hơn."</p>
+                        <p class="mt-4 font-semibold">Tổ chức Văn hóa B</p>
+                    </div>
+                    <div class="testimonial-card p-6 rounded-lg shadow-lg fade-in text-gray-800" style="animation-delay: 0.4s;">
+                        <p class="text-gray-600 italic">"Chứng nhận ESG từ ArtGuard nâng cao uy tín của chúng tôi."</p>
+                        <p class="mt-4 font-semibold">Họa sĩ C</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/faq.png" alt="FAQ Icon" class="inline-block mb-4 slide-in-left" />
+                    <h2 class="text-3xl font-bold slide-in-left">Câu Hỏi Thường Gặp</h2>
+                    <p class="mt-2 text-lg text-gray-600 slide-in-right">Giải đáp các thắc mắc về ArtGuard.</p>
+                </div>
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <div class="card p-4 fade-in">
+                        <button class="w-full text-left font-semibold text-lg flex justify-between items-center" aria-expanded="true" aria-controls="faq1">
+                            ArtGuard tích hợp với hệ thống ngân hàng như thế nào?
+                            <span class="text-2xl">↑</span>
+                        </button>
+                        <div id="faq1" class="faq-item text-gray-600 text-sm mt-2">
+                            ArtGuard cung cấp API và cổng ngân hàng để tích hợp với hệ thống hiện có, hỗ trợ giám sát AML và ESG thời gian thực.
+                        </div>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.2s;">
+                        <button class="w-full text-left font-semibold text-lg flex justify-between items-center" aria-expanded="false" aria-controls="faq2">
+                            Blockchain của ArtGuard có an toàn không?
+                            <span class="text-2xl">↓</span>
+                        </button>
+                        <div id="faq2" class="faq-item hidden text-gray-600 text-sm mt-2">
+                            Blockchain của ArtGuard sử dụng mã hóa cấp quân sự và phân quyền, đảm bảo giao dịch không thể bị sửa đổi.
+                        </div>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.4s;">
+                        <button class="w-full text-left font-semibold text-lg flex justify-between items-center" aria-expanded="false" aria-controls="faq3">
+                            Ai có thể sử dụng ArtGuard?
+                            <span class="text-2xl">↓</span>
+                        </button>
+                        <div id="faq3" class="faq-item hidden text-gray-600 text-sm mt-2">
+                            Ngân hàng, tổ chức văn hóa, họa sĩ, và nhà tài trợ đều có thể sử dụng ArtGuard để đảm bảo minh bạch.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 text-white relative overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold slide-in-left">Sẵn Sàng Chuyển Đổi?</h2>
+                <p class="mt-4 text-lg max-w-2xl mx-auto opacity-90 slide-in-right">Hãy để ArtGuard giúp bạn dẫn đầu trong tài trợ văn hóa minh bạch.</p>
+                <div class="mt-8 flex justify-center gap-4 fade-in">
+                    <a href="https://zalo.me/84345249577" 
+                        class="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:from-yellow-300 hover:to-orange-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105" 
+                        target="_blank" 
+                        aria-label="Chat Zalo với chúng tôi">
+                        Yêu Cầu Demo
+                    </a>
+                    <a href="https://docs.google.com/document/d/1GFtDs7QEG7fMaPNVSLp4qmAePtUHRiQiP3_RHytuD0A/preview" 
+                        target="_blank"
+                        class="bg-white/20 backdrop-blur-lg text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white/30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30" 
+                        aria-label="Download Brochure">
+                        Tải Tài Liệu
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8 relative">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2025 ArtGuard. <span style="font-family: 'Dancing Script', cursive; font-size: 1.2em;">Nguyen Le Nhuan Phat</span></p>
+            <p class="text-sm text-gray-400 mt-2">Tương lai tài trợ văn hóa minh bạch và bền vững.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuBtn.setAttribute('aria-expanded', !mobileMenu.classList.contains('hidden'));
+            });
+
+            const scenario1Btn = document.getElementById('scenario1-btn');
+            const scenario2Btn = document.getElementById('scenario2-btn');
+            const scenario1Content = document.getElementById('scenario1');
+            const scenario2Content = document.getElementById('scenario2');
+
+            function showScenario1() {
+                scenario1Btn.classList.add('active');
+                scenario2Btn.classList.remove('active');
+                scenario1Content.classList.remove('hidden');
+                scenario2Content.classList.add('hidden');
+                scenario1Content.classList.add('fade-in');
+                scenario1Btn.setAttribute('aria-selected', 'true');
+                scenario2Btn.setAttribute('aria-selected', 'false');
+
+                const gaugeFill = document.getElementById('gauge-fill-s1');
+                const gaugeValue = document.getElementById('gauge-value-s1');
+                // Reset gauge before animating for better visual effect
+                if (gaugeFill) {
+                    gaugeFill.style.transform = `rotate(0deg)`;
+                    gaugeFill.style.borderColor = '#10B981'; // Default green
+                    gaugeValue.textContent = '0.0';
+                    gaugeValue.style.color = '#1F2937';
+                }
+
+                setTimeout(() => {
+                    const riskScore = 9.2;
+                    const rotation = (riskScore / 10) * 180;
+                    if (gaugeFill) {
+                        gaugeFill.style.transform = `rotate(${rotation}deg)`;
+                        gaugeFill.style.borderColor = '#EF4444'; // Red for high risk
+                        gaugeFill.classList.add('pulse');
+                        gaugeValue.textContent = riskScore.toFixed(1);
+                        gaugeValue.style.color = '#EF4444';
+                        setTimeout(() => gaugeFill.classList.remove('pulse'), 1500);
+                    }
+                }, 500);
+            }
+
+            function showScenario2() {
+                scenario1Btn.classList.remove('active');
+                scenario2Btn.classList.add('active');
+                scenario1Content.classList.add('hidden');
+                scenario2Content.classList.remove('hidden');
+                scenario2Content.classList.add('fade-in');
+                scenario1Btn.setAttribute('aria-selected', 'false');
+                scenario2Btn.setAttribute('aria-selected', 'true');
+
+                const gaugeFill = document.getElementById('gauge-fill-s2');
+                const gaugeValue = document.getElementById('gauge-value-s2');
+                // Reset gauge before animating for better visual effect
+                if (gaugeFill) {
+                    gaugeFill.style.transform = `rotate(0deg)`;
+                    gaugeFill.style.borderColor = '#EF4444'; // Default red
+                    gaugeValue.textContent = '0.0';
+                    gaugeValue.style.color = '#1F2937';
+                }
+
+                setTimeout(() => {
+                    const riskScore = 2.0;
+                    const rotation = (riskScore / 10) * 180;
+                    if (gaugeFill) {
+                        gaugeFill.style.transform = `rotate(${rotation}deg)`;
+                        gaugeFill.style.borderColor = '#10B981'; // Green for low risk
+                        gaugeFill.classList.add('pulse');
+                        gaugeValue.textContent = riskScore.toFixed(1);
+                        gaugeValue.style.color = '#10B981';
+                        setTimeout(() => gaugeFill.classList.remove('pulse'), 1500);
+                    }
+                }, 500);
+            }
+
+            scenario1Btn.addEventListener('click', showScenario1);
+            scenario2Btn.addEventListener('click', showScenario2);
+            showScenario1();
+
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                            el.style.animationPlayState = 'running';
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            let ticking = false;
+
+            function updateActiveNav() {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        let currentSection = '';
+                        sections.forEach(section => {
+                            const rect = section.getBoundingClientRect();
+                            if (rect.top <= 100 && rect.bottom >= 100) {
+                                currentSection = section.id;
+                            }
+                        });
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${currentSection}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            window.addEventListener('scroll', updateActiveNav);
+
+            document.querySelectorAll('.faq-item').forEach((item, index) => {
+                // Ensure the button is correctly identified relative to the faq-item div
+                const button = item.previousElementSibling; 
+                if (button) { // Check if button exists
+                    button.addEventListener('click', () => {
+                        const isHidden = item.classList.contains('hidden');
+                        item.classList.toggle('hidden');
+                        button.setAttribute('aria-expanded', isHidden);
+                        button.querySelector('span').textContent = isHidden ? '↑' : '↓';
+                    });
+                }
+            });
+
+            const chartScript = document.createElement('script');
+            chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+            chartScript.async = true;
+            chartScript.onload = () => {
+                const ctxComparison = document.getElementById('comparisonChart');
+                if (ctxComparison) { // Ensure canvas element exists
+                    new Chart(ctxComparison.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Phát Hiện Rửa Tiền', 'Lưu Trữ Dòng Tiền', 'Báo Cáo ESG', 'Minh Bạch Tài Trợ'],
+                            datasets: [{
+                                label: 'Giải pháp hiện tại',
+                                data: [3, 4, 2, 3],
+                                backgroundColor: 'rgba(156, 163, 175, 0.8)',
+                                borderColor: '#6B7280',
+                                borderWidth: 2,
+                                borderRadius: 8
+                            }, {
+                                label: 'ArtGuard',
+                                data: [9, 10, 9, 10],
+                                backgroundColor: 'rgba(56, 189, 248, 0.8)',
+                                borderColor: '#0EA5E9',
+                                borderWidth: 2,
+                                borderRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            indexAxis: 'y',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    max: 10,
+                                    title: { 
+                                        display: true, 
+                                        text: 'Hiệu Quả (Thang 10)',
+                                        font: { size: 14, weight: 'bold' }
+                                    },
+                                    grid: { 
+                                        borderColor: '#D1D5DB',
+                                        color: 'rgba(209, 213, 219, 0.3)'
+                                    }
+                                },
+                                y: { 
+                                    grid: { display: false },
+                                    ticks: { font: { size: 12 } }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'So Sánh Hiệu Quả: ArtGuard vs. Truyền Thống',
+                                    font: { size: 20, weight: 'bold' },
+                                    color: '#1F2937'
+                                },
+                                legend: {
+                                    labels: { font: { size: 12 } }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.dataset.label}: ${context.parsed.x}/10`;
+                                        }
+                                    },
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    titleColor: '#FFFFFF',
+                                    bodyColor: '#FFFFFF'
+                                }
+                            },
+                            animation: {
+                                duration: 1500,
+                                easing: 'easeOutBounce'
+                            }
+                        }
+                    });
+                }
+
+                const ctxRiskTrend = document.getElementById('riskTrendChart');
+                if (ctxRiskTrend) { // Ensure canvas element exists
+                    new Chart(ctxRiskTrend.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+                            datasets: [{
+                                label: 'Trước ArtGuard',
+                                data: [75, 72, 78, 70, 76, 79],
+                                borderColor: '#EF4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 3,
+                                pointBackgroundColor: '#EF4444',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointRadius: 6
+                            }, {
+                                label: 'Với ArtGuard',
+                                data: [50, 40, 30, 20, 10, 5],
+                                borderColor: '#38BDF8',
+                                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 3,
+                                pointBackgroundColor: '#38BDF8',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { 
+                                        display: true, 
+                                        text: 'Tỷ lệ Rủi Ro (%)',
+                                        font: { size: 14, weight: 'bold' }
+                                    },
+                                    ticks: { 
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Thời gian'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Hiệu Quả Giảm Tỷ Lệ Rửa Tiền Theo Thời Gian',
+                                    font: { size: 20, weight: 'bold' },
+                                    color: '#1F2937'
+                                },
+                                legend: {
+                                    labels: { font: { size: 12 } }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.dataset.label}: ${context.parsed.y}%`;
+                                        }
+                                    },
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    titleColor: '#FFFFFF',
+                                    bodyColor: '#FFFFFF'
+                                }
+                            },
+                            animation: {
+                                duration: 1500,
+                                easing: 'easeOutQuart'
+                            }
+                        }
+                    });
+                }
+            };
+            document.head.appendChild(chartScript);
+        });
+    </script>
+</body>
+</html>
